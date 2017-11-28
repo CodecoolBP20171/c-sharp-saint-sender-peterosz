@@ -8,11 +8,7 @@ namespace SaintSender
         [STAThread]
         static void Main(string[] args)
         {
-            GoogleAPIHandler googleAPI = new GoogleAPIHandler();
-            foreach(string label in googleAPI.GetLabels())
-            {
-                Console.WriteLine(label);
-            }
+            
             
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

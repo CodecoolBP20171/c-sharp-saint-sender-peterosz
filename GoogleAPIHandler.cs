@@ -19,6 +19,7 @@ namespace SaintSender
         // at ~/.credentials/gmail-dotnet-quickstart.json
         static string[] Scopes = { GmailService.Scope.GmailReadonly };
         static string ApplicationName = "Gmail API .NET Quickstart";
+        string userId = "me";
 
         private UserCredential GetUserCredential()
         {
@@ -58,7 +59,7 @@ namespace SaintSender
         {
             var service = GetGmailService();
             // Define parameters of request.
-            UsersResource.LabelsResource.ListRequest request = service.Users.Labels.List("me");
+            UsersResource.LabelsResource.ListRequest request = service.Users.Labels.List(userId);
             IList<Label> gLabels= request.Execute().Labels;
             List<string> labels = new List<string>();
             foreach(var label in gLabels)
@@ -72,7 +73,7 @@ namespace SaintSender
             return null;
         }
 
-        public Message GetMessage(String userId, String messageId)
+        public Message GetMessage(String messageId)
         {
             var service = GetGmailService();
             try
@@ -85,6 +86,30 @@ namespace SaintSender
             }
 
             return null;
+        }
+
+        public List<Message> ListMessages(String query = "")
+        {
+            var service = GetGmailService();
+            List<Message> result = new List<Message>();
+            UsersResource.MessagesResource.ListRequest request = service.Users.Messages.List(userId);
+            request.Q = query;
+
+            do
+            {
+                try
+                {
+                    ListMessagesResponse response = request.Execute();
+                    result.AddRange(response.Messages);
+                    request.PageToken = response.NextPageToken;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("An error occurred: " + e.Message);
+                }
+            } while (!String.IsNullOrEmpty(request.PageToken));
+
+            return result;
         }
     }
 }

@@ -11,6 +11,9 @@ namespace SaintSender
 {
     public partial class SaintSender : Form
     {
+        GoogleAPIHandler googleAPI = new GoogleAPIHandler();
+            
+
         public SaintSender()
         {
             InitializeComponent();
@@ -18,7 +21,14 @@ namespace SaintSender
 
         private void SaintSender_Load(object sender, EventArgs e)
         {
+            foreach (var msg in googleAPI.ListMessages())
+            {
+                mailList.Rows.Add(
+                    googleAPI.GetMessage(msg.Id).Payload.Headers[5].Value + "\n" +
+                    googleAPI.GetMessage(msg.Id).Payload.Headers[6].Value
+                    );
 
+            }
         }
     }
 }

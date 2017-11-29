@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.mailList = new System.Windows.Forms.DataGridView();
+            this.mailListColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.displayMail = new System.Windows.Forms.RichTextBox();
             this.replyMail = new System.Windows.Forms.RichTextBox();
@@ -41,18 +43,16 @@
             this.txtBoxToFrom = new System.Windows.Forms.TextBox();
             this.lblFrom = new System.Windows.Forms.Label();
             this.btnCompose = new System.Windows.Forms.Button();
-            this.mailList = new System.Windows.Forms.DataGridView();
-            this.mailListColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mailList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.mailList)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -71,6 +71,39 @@
             this.splitContainer1.Size = new System.Drawing.Size(975, 555);
             this.splitContainer1.SplitterDistance = 325;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // mailList
+            // 
+            this.mailList.AllowUserToAddRows = false;
+            this.mailList.AllowUserToDeleteRows = false;
+            this.mailList.AllowUserToResizeColumns = false;
+            this.mailList.AllowUserToResizeRows = false;
+            this.mailList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.mailList.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.mailList.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.mailList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.mailList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.mailListColumn});
+            this.mailList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mailList.Location = new System.Drawing.Point(0, 0);
+            this.mailList.MultiSelect = false;
+            this.mailList.Name = "mailList";
+            this.mailList.ReadOnly = true;
+            this.mailList.RowHeadersVisible = false;
+            this.mailList.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.mailList.RowTemplate.Height = 24;
+            this.mailList.RowTemplate.ReadOnly = true;
+            this.mailList.Size = new System.Drawing.Size(325, 555);
+            this.mailList.TabIndex = 0;
+            this.mailList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.mailList_CellContentClick);
+            // 
+            // mailListColumn
+            // 
+            this.mailListColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.mailListColumn.HeaderText = "Your E-mails:";
+            this.mailListColumn.Name = "mailListColumn";
+            this.mailListColumn.ReadOnly = true;
+            this.mailListColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // splitContainer2
             // 
@@ -92,9 +125,11 @@
             // 
             // displayMail
             // 
+            this.displayMail.BackColor = System.Drawing.SystemColors.Info;
             this.displayMail.Dock = System.Windows.Forms.DockStyle.Fill;
             this.displayMail.Location = new System.Drawing.Point(0, 0);
             this.displayMail.Name = "displayMail";
+            this.displayMail.ReadOnly = true;
             this.displayMail.Size = new System.Drawing.Size(646, 364);
             this.displayMail.TabIndex = 0;
             this.displayMail.Text = "";
@@ -183,32 +218,6 @@
             this.btnCompose.Text = "Compose Mail";
             this.btnCompose.UseVisualStyleBackColor = true;
             // 
-            // mailList
-            // 
-            this.mailList.AllowUserToResizeColumns = false;
-            this.mailList.AllowUserToResizeRows = false;
-            this.mailList.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.mailList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.mailList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.mailListColumn});
-            this.mailList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mailList.Location = new System.Drawing.Point(0, 0);
-            this.mailList.MultiSelect = false;
-            this.mailList.Name = "mailList";
-            this.mailList.ReadOnly = true;
-            this.mailList.RowHeadersVisible = false;
-            this.mailList.RowTemplate.Height = 24;
-            this.mailList.Size = new System.Drawing.Size(325, 555);
-            this.mailList.TabIndex = 0;
-            // 
-            // mailListColumn
-            // 
-            this.mailListColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.mailListColumn.HeaderText = "Your E-mails:";
-            this.mailListColumn.Name = "mailListColumn";
-            this.mailListColumn.ReadOnly = true;
-            this.mailListColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
             // SaintSender
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -228,13 +237,13 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.mailList)).EndInit();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.mailList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

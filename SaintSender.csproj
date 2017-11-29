@@ -71,6 +71,9 @@
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.7.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="S22.Imap, Version=3.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\S22.Imap.3.6.0.0\lib\net40\S22.Imap.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -147,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GoogleAPIHandler.cs" />
+    <Compile Include="IMAPGmailHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="SaintSender.cs">
       <SubType>Form</SubType>

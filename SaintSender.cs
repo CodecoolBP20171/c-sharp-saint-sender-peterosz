@@ -54,7 +54,8 @@ namespace SaintSender
         void PopulateMails()
         {
             mailList.Rows.Clear();
-            var allMails = gmail.GetMails();
+            List<MailMessage> allMails = new List<MailMessage>(gmail.GetMails());
+            allMails.Reverse();
             int rowcount = 0;
             foreach (MailMessage msg in allMails)
             {

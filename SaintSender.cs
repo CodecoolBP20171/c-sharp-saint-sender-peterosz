@@ -26,7 +26,7 @@ namespace SaintSender
             UserLogInPopUp();
         }
 
-        void UserLogInPopUp(string errorMessage = "")
+        public void UserLogInPopUp(string errorMessage = "")
         {
             login = new LoginForm();
             login.errorMessage = errorMessage;
@@ -54,19 +54,28 @@ namespace SaintSender
         void PopulateMails()
         {
             mailList.Rows.Clear();
-            List<MailMessage> allMails = new List<MailMessage>(gmail.GetMails());
-            allMails.Reverse();
-            int rowcount = 0;
-            foreach (MailMessage msg in allMails)
+            List<MailMessage> allMails;
+            try
             {
-                mailList.Rows.Add(
-                    "Subject: " + msg.Subject + "\n" +
-                    "From: " + msg.From
-                    );
-                mailList.Rows[rowcount].Tag = msg;
-                rowcount++;
+                allMails = new List<MailMessage>(gmail.GetMails());
+                allMails.Reverse();
+                int rowcount = 0;
+                foreach (MailMessage msg in allMails)
+                {
+                    mailList.Rows.Add(
+                        "Subject: " + msg.Subject + "\n" +
+                        "From: " + msg.From
+                        );
+                    mailList.Rows[rowcount].Tag = msg;
+                    rowcount++;
 
+                }
             }
+            catch (NullReferenceException ex)
+            {
+                Console.WriteLine("Stop it.. Message: " + ex.Message);
+            }
+
         }
 
         private void mailList_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -117,9 +126,20 @@ namespace SaintSender
             string subject = "RE: " + mailSubject;
             string body = replyMail.Text;
             string adress = txtBoxToFrom.Text;
-            string username = gmail.UserName;
-            string password = gmail.Password;
-            IMAPGmailHandler.SendEmail(subject, body, adress, username, password);
+            if (body == "")
+            {
+                body = "This is an empty e-mail, I'm clicking stuff randomly. Sorry..";
+            }
+            try
+            {
+                string username = gmail.UserName;
+                string password = gmail.Password;
+                IMAPGmailHandler.SendEmail(subject, body, adress, username, password);
+            }
+            catch(NullReferenceException ex)
+            {
+                Console.WriteLine("Clicking buttons are you? Message: " + ex.Message);
+            }
             replyMail.Text = "";
         }
     }

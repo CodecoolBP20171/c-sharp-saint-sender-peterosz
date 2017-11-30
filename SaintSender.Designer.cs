@@ -94,6 +94,7 @@
             this.mailList.RowTemplate.ReadOnly = true;
             this.mailList.Size = new System.Drawing.Size(325, 555);
             this.mailList.TabIndex = 0;
+            this.mailList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.mailList_CellContentClick);
             this.mailList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.mailList_CellContentClick);
             // 
             // mailListColumn
@@ -184,6 +185,7 @@
             // 
             this.txtBoxToFrom.Location = new System.Drawing.Point(431, 33);
             this.txtBoxToFrom.Name = "txtBoxToFrom";
+            this.txtBoxToFrom.ReadOnly = true;
             this.txtBoxToFrom.Size = new System.Drawing.Size(437, 22);
             this.txtBoxToFrom.TabIndex = 3;
             // 
@@ -232,6 +234,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "SaintSender";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SaintSender";
             this.Load += new System.EventHandler(this.SaintSender_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);

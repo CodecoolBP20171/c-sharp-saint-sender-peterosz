@@ -38,11 +38,10 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.saintMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.switchAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.backupEmailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.restoreFromBackupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtBoxToFrom = new System.Windows.Forms.TextBox();
             this.lblFrom = new System.Windows.Forms.Label();
             this.btnCompose = new System.Windows.Forms.Button();
+            this.btnRefresh = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -58,7 +57,7 @@
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 40);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 74);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -104,6 +103,7 @@
             this.mailListColumn.Name = "mailListColumn";
             this.mailListColumn.ReadOnly = true;
             this.mailListColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.mailListColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // splitContainer2
             // 
@@ -146,12 +146,13 @@
             // btnReply
             // 
             this.btnReply.AutoSize = true;
-            this.btnReply.Location = new System.Drawing.Point(888, 7);
+            this.btnReply.Location = new System.Drawing.Point(888, 31);
             this.btnReply.Name = "btnReply";
             this.btnReply.Size = new System.Drawing.Size(75, 27);
             this.btnReply.TabIndex = 1;
             this.btnReply.Text = "Reply";
             this.btnReply.UseVisualStyleBackColor = true;
+            this.btnReply.Click += new System.EventHandler(this.btnReply_Click);
             // 
             // menuStrip1
             // 
@@ -167,9 +168,7 @@
             // saintMenu
             // 
             this.saintMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.switchAccountToolStripMenuItem,
-            this.backupEmailsToolStripMenuItem,
-            this.restoreFromBackupToolStripMenuItem});
+            this.switchAccountToolStripMenuItem});
             this.saintMenu.Name = "saintMenu";
             this.saintMenu.Size = new System.Drawing.Size(58, 24);
             this.saintMenu.Text = "Menu";
@@ -177,24 +176,13 @@
             // switchAccountToolStripMenuItem
             // 
             this.switchAccountToolStripMenuItem.Name = "switchAccountToolStripMenuItem";
-            this.switchAccountToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.switchAccountToolStripMenuItem.Size = new System.Drawing.Size(185, 26);
             this.switchAccountToolStripMenuItem.Text = "Switch Account";
-            // 
-            // backupEmailsToolStripMenuItem
-            // 
-            this.backupEmailsToolStripMenuItem.Name = "backupEmailsToolStripMenuItem";
-            this.backupEmailsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.backupEmailsToolStripMenuItem.Text = "Backup E-mails";
-            // 
-            // restoreFromBackupToolStripMenuItem
-            // 
-            this.restoreFromBackupToolStripMenuItem.Name = "restoreFromBackupToolStripMenuItem";
-            this.restoreFromBackupToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.restoreFromBackupToolStripMenuItem.Text = "Restore From Backup";
+            this.switchAccountToolStripMenuItem.Click += new System.EventHandler(this.switchAccountToolStripMenuItem_Click);
             // 
             // txtBoxToFrom
             // 
-            this.txtBoxToFrom.Location = new System.Drawing.Point(431, 12);
+            this.txtBoxToFrom.Location = new System.Drawing.Point(431, 33);
             this.txtBoxToFrom.Name = "txtBoxToFrom";
             this.txtBoxToFrom.Size = new System.Drawing.Size(437, 22);
             this.txtBoxToFrom.TabIndex = 3;
@@ -202,27 +190,40 @@
             // lblFrom
             // 
             this.lblFrom.AutoSize = true;
-            this.lblFrom.Location = new System.Drawing.Point(360, 15);
+            this.lblFrom.Location = new System.Drawing.Point(356, 36);
             this.lblFrom.Name = "lblFrom";
-            this.lblFrom.Size = new System.Drawing.Size(65, 17);
+            this.lblFrom.Size = new System.Drawing.Size(69, 17);
             this.lblFrom.TabIndex = 4;
-            this.lblFrom.Text = "To/From:";
+            this.lblFrom.Text = "Reply To:";
             // 
             // btnCompose
             // 
             this.btnCompose.AutoSize = true;
-            this.btnCompose.Location = new System.Drawing.Point(133, 7);
+            this.btnCompose.Location = new System.Drawing.Point(133, 31);
             this.btnCompose.Name = "btnCompose";
             this.btnCompose.Size = new System.Drawing.Size(192, 27);
             this.btnCompose.TabIndex = 5;
             this.btnCompose.Text = "Compose Mail";
             this.btnCompose.UseVisualStyleBackColor = true;
+            this.btnCompose.Click += new System.EventHandler(this.btnCompose_Click);
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.AutoSize = true;
+            this.btnRefresh.Location = new System.Drawing.Point(12, 31);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(103, 27);
+            this.btnRefresh.TabIndex = 6;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // SaintSender
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(975, 595);
+            this.ClientSize = new System.Drawing.Size(975, 629);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnCompose);
             this.Controls.Add(this.lblFrom);
             this.Controls.Add(this.txtBoxToFrom);
@@ -259,12 +260,11 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem saintMenu;
         private System.Windows.Forms.ToolStripMenuItem switchAccountToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem backupEmailsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem restoreFromBackupToolStripMenuItem;
         private System.Windows.Forms.TextBox txtBoxToFrom;
         private System.Windows.Forms.Label lblFrom;
         private System.Windows.Forms.Button btnCompose;
         private System.Windows.Forms.DataGridView mailList;
         private System.Windows.Forms.DataGridViewTextBoxColumn mailListColumn;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }
